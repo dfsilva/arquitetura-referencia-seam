@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+ 
+	<ui:component>
+		<a4j:outputPanel id="#{id}">
+			<h:inputHidden id="hidden_entidade_select" value="#{value}" converter="entidadeSateliteConverter"/>
+			
+			<c:if test="#{not empty disabled and disabled}">
+				<select name="select_entidades" id="select_entidades" style="width:400px;" 
+					disabled="disabled"
+					onchange="jQuery('[id$=hidden_entidade_select]').val((jQuery(this).val() != 0) ? jQuery(this).val() : ''); onchangeSelectEntidades();">
+					<c:if test="#{not empty exibirSelecione and exibirSelecione}">
+						<option value="0">Selecione...</option>
+					</c:if>
+					<c:forEach items="#{itens}" var="grupo">
+						<optgroup label="#{grupo.key.value}">
+							<c:forEach items="#{grupo.value}" var="ent">
+									<option value="#{ent.numeroEntidadeSatelite}">#{ent.nomeEntidadeSatelite}</option>
+							</c:forEach>
+					    </optgroup>
+					</c:forEach>
+				 </select>
+			</c:if>
+			<c:if test="#{empty disabled or not disabled}">
+				 <select name="select_entidades" id="select_entidades" style="width:400px;" 
+					onchange="jQuery('[id$=hidden_entidade_select]').val((jQuery(this).val() != 0) ? jQuery(this).val() : ''); onchangeSelectEntidades();">
+					<c:if test="#{not empty exibirSelecione and exibirSelecione}">
+						<option value="0">Selecione...</option>
+					</c:if>
+					<c:forEach items="#{itens}" var="grupo">
+						<optgroup label="#{grupo.key.value}">
+							<c:forEach items="#{grupo.value}" var="ent">
+									<option value="#{ent.numeroEntidadeSatelite}">#{ent.nomeEntidadeSatelite}</option>
+							</c:forEach>
+					    </optgroup>
+					</c:forEach>
+				 </select>
+			 </c:if>
+			 <script type="text/javascript">
+				//<![CDATA[
+				 	if(jQuery('[id$=hidden_entidade_select]').val() == ''){
+				 		jQuery('option',jQuery('[id$=select_entidades]')).eq(0).attr('selected','selected');
+				 		jQuery('[id$=hidden_entidade_select]').val(jQuery('option',jQuery('[id$=select_entidades]')).eq(0).val());
+					 }else{
+						 jQuery(jQuery('option',jQuery('[id$=select_entidades]'))).each(function(i,j){
+						    if(jQuery(j).val() == jQuery('[id$=hidden_entidade_select]').val()){
+						    	jQuery(j).attr('selected','selected');
+							 }
+						 });
+					}
+
+					function onchangeSelectEntidades(){
+					}
+				//]]>
+			 </script>
+		</a4j:outputPanel>
+	</ui:component>
+</html>

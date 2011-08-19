@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:anatel="http://www.anatel.gov.br/jsf"
+    template="/layout/template.xhtml">
+
+    <ui:param name="showGlobalMessages" value="false"/>
+    
+    <ui:define name="body">
+    
+    <script type="text/javascript">
+
+    var exibindoErro = false;
+
+    function exibirErro(){
+        if(exibindoErro){
+        	 jQuery('[id$=divDetalheErro]').fadeOut('slow', function() {
+                 exibindoErro = false;
+                 jQuery('[id$=btnExibirErro]').text('Exibir erro técnico');
+             });
+        }else{
+             jQuery('[id$=divDetalheErro]').fadeIn('slow', function() {
+                 exibindoErro = true;
+                 jQuery('[id$=btnExibirErro]').text('Esconder erro técnico');
+         });
+        }
+     }
+    </script>
+    
+    <style type="text/css">
+    .erro_detalhe{
+			font-size: 12px;
+			color: #FF0000;
+		}
+    </style>
+
+        <h1>Erro</h1>
+        <p>Alguma coisa deu errado :-(</p>
+
+        <h:messages id="errorMessage" styleClass="message"/>
+		  
+		<a id="btnExibirErro" href="javascript:exibirErro();">Exibir erro técnico</a>
+		<p/>
+		
+		<s:div id="divDetalheErro" style="display:none" styleClass="erro_detalhe">
+		  <h:outputText value="Causa raiz = #{org.jboss.seam.handledException.class}" />
+		  <hr/>
+		  <h:outputText value="Mensagem = #{org.jboss.seam.handledException.message}" />
+		  <hr/>
+		  <ol>
+			   <ui:repeat var="ex" value="#{org.jboss.seam.handledException.stackTrace}">
+				    <li>
+				     	<h:outputText value="#{ex.className}:#{ex.lineNumber} #{ex.methodName}" />
+				    </li>
+			   </ui:repeat>
+		  </ol>
+		  <hr/>
+		 </s:div>
+    </ui:define>
+</ui:composition>

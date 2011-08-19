@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+	<navigation>
+		<rule if-outcome="editar">
+			<redirect view-id="/pages/usuario/UsuarioEdit.xhtml">
+				<param name="from" value="UsuarioList" />
+			</redirect>
+		</rule>
+		<rule if-outcome="visualizar">
+			<redirect view-id="/pages/usuario/Usuario.xhtml">
+				<param name="from" value="UsuarioList" />
+			</redirect>
+		</rule>
+		<rule if-outcome="historico">
+			<redirect view-id="/pages/usuario/historico.xhtml">
+				<param name="from" value="UsuarioList" />
+			</redirect>
+		</rule>
+	</navigation>
+
+</page>

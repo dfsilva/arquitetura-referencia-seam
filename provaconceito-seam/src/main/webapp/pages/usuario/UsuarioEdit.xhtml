@@ -1,0 +1,187 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/layout/template.xhtml">
+
+<ui:define name="body">
+	
+	<a4j:region>
+		<h:form>
+			<a4j:queue id="filaPoll" ignoreDupResponce="true"/>
+			<a4j:poll id="poll" interval="3000" enabled="true" action="#{usuarioBean.atualizaIndice2()}" reRender="indice2"/>
+			<a4j:poll id="poll2" interval="3000" enabled="true" action="#{usuarioBean.atualizaIndice()}" reRender="indice1"/>
+		</h:form>
+	</a4j:region>
+
+    <h:form id="formUsuario" styleClass="edit">
+		<h:inputHidden value="#{usuarioBean.data.value.id}" converter="javax.faces.Integer" />
+		
+        <rich:panel>
+            <f:facet name="header">Usuario</f:facet>
+            
+            <s:decorate id="indice1" template="/layout/edit.xhtml">
+                <ui:define name="label">Indice1</ui:define>
+                <h:inputText id="indice1" size="30" value="#{usuarioBean.indice}"/>
+            </s:decorate>
+            
+            <s:decorate id="indice2" template="/layout/edit.xhtml">
+                <ui:define name="label">Indice2</ui:define>
+                <h:inputText id="indice2" size="30" value="#{usuarioBean.indice2}"/>
+            </s:decorate>
+
+            <s:decorate id="nomeField" template="/layout/edit.xhtml">
+                <ui:define name="label">Nome</ui:define>
+                <h:inputText id="nome" size="30" value="#{usuarioBean.data.value.nome}" styleClass="alpha_latin"/>
+            </s:decorate>
+
+            <s:decorate id="senhaField" template="/layout/edit.xhtml">
+                <ui:define name="label">Senha</ui:define>
+                <h:inputSecret value="#{usuarioBean.data.value.senha}" />
+            </s:decorate>
+
+            <s:decorate id="emailField" template="/layout/edit.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputText id="email" size="30" maxlength="100" 
+                	value="#{usuarioBean.data.value.email}"/>
+            </s:decorate>
+            
+            <s:decorate id="checkField" template="/layout/edit.xhtml"> 
+                <ui:define name="label">Teste CheckBox</ui:define>
+                <h:selectManyCheckbox value="#{usuarioBean.valoresCheckSelecionado}" styleClass="now_rap" style="width: 600px;">
+                	<s:selectItems value="#{usuarioBean.valoresCheck}" var="c" label="#{c}" itemValue="#{c}"/>
+                </h:selectManyCheckbox>
+            </s:decorate>
+            
+             <s:decorate id="uploadField" template="/layout/edit.xhtml"> 
+	             <h:outputText value="Anexar Documento" />
+				 <h:panelGrid columns="2">
+					 <a4j:region>
+						<rich:fileUpload fileUploadListener="#{usuarioBean.uploadListener}" 
+			                id="uploadAnexo" immediateUpload="false" listHeight="60px" doneLabel="Finalizado"
+			                uploadControlLabel="Enviar" ajaxSingle="true" cancelEntryControlLabel="Cancelar" addControlLabel="Adicionar"
+			                acceptedTypes="pdf, doc, xls" autoclear="true" maxFilesQuantity="20" sizeErrorLabel="Tamanho do arquivo invalido" >
+			                <a4j:support event="onuploadcomplete" reRender="tableFilesUploaded"/>
+			            </rich:fileUpload>
+			         </a4j:region>
+		             <h:outputText value="(pdf, doc, xls)"/>
+		            
+			          <rich:dataTable value="#{usuarioBean.anexos}"	width="401px" var="f" id="tableFilesUploaded" 
+			          	rows="4" rowKeyVar="indice">
+						<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="#{f.nome}"/>
+								</rich:column>
+								<rich:column width="10px" styleClass="center">
+									 <a4j:htmlCommandLink action="#{usuarioBean.download(indice)}" value="Download"/>
+								</rich:column>
+						</rich:columnGroup>
+					   </rich:dataTable>
+	            </h:panelGrid>
+ 			</s:decorate>
+ 			
+            <div style="clear:both"/>
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="#{empty usuarioBean.data.value.id ? 'Salvar' : 'Atualizar'}"
+                         action="#{usuarioBean.saveWithValidation}"/>
+
+            <h:commandButton id="delete"
+                          value="Excluir"
+                         action="#{usuarioBean.delete}"
+                      immediate="true"
+                       rendered="#{not empty usuarioBean.data.value.id}"/>
+
+            <s:button id="btnCancelar"
+                   value="Cancelar"
+                   view="/pages/usuario/#{empty from ? 'Usuario' : from}.xhtml"/>
+                   
+            <a4j:commandButton id="saveError" reRender="formUsuario"
+                          value="#{empty usuarioBean.data.value.id ? 'Salvar Gerando Erro' : 'Atualizar Gerando Erro'}"
+                         action="#{usuarioBean.saveWithError()}"/>
+		 	
+			 <a4j:commandButton id="addNote" value="Adicionar Nota" onclick="#{rich:component('panelIncluirNota')}.show();"
+			 	reRender="formIncluirNota" immediate="true" status="noStatus"/>                         
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax" id="tabPanelNotas">
+    <rich:tab label="Notas" id="notas">
+        <h:form styleClass="association" id="notasChildren">
+            <h:outputText value="Não à notas associadas para este usuario."
+                       rendered="#{empty usuarioBean.data.value.notas}"/>
+            <rich:dataTable value="#{usuarioBean.data.value.notas}"
+                           var="_nota" rowKeyVar="indice"
+                      rendered="#{not empty usuarioBean.data.value.notas}"
+                    rowClasses="rvgRowOne,rvgRowTwo" id="notasTable">
+                <rich:column sortBy="#{_nota.id}">
+                    <f:facet name="header">Id</f:facet>
+                    <h:outputText value="#{_nota.id}"/>
+                </rich:column>
+                <rich:column sortBy="#{_nota.titulo}">
+                    <f:facet name="header">Titulo</f:facet>
+                    <h:outputText value="#{_nota.titulo}"/>
+                </rich:column>
+                <rich:column sortBy="#{_nota.texto}">
+                    <f:facet name="header">Texto</f:facet>
+                    <h:outputText value="#{_nota.texto}"/>
+                </rich:column>
+                <rich:column sortBy="#{_nota.texto}">
+                    <f:facet name="header">Ação</f:facet>
+                    <a4j:commandLink title="Excluir Nota" value="Excluir" action="#{usuarioBean.excluirNota(indice)}" 
+                    	reRender="notasChildren">
+                    	<f:setPropertyActionListener target="#{usuarioBean.nota}" value="#{_nota}"/>
+                    </a4j:commandLink>
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+    </rich:tab>
+</rich:tabPanel>
+
+<rich:modalPanel id="panelIncluirNota" width="500" height="300">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Nota"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="hidePanelIncluirNota" />
+					<rich:componentControl for="panelIncluirNota"
+						attachTo="hidePanelIncluirNota" operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form id="formIncluirNota">
+			<h:panelGrid>
+	    		<s:decorate id="tituloField" template="/layout/edit.xhtml">
+	                <ui:define name="label">Titulo</ui:define>
+	                <h:inputText value="#{usuarioBean.nota.titulo}" styleClass="alpha_latin"/>
+	            </s:decorate>
+	            
+	            <s:decorate id="textoField" template="/layout/edit.xhtml">
+	                <ui:define name="label">Texto</ui:define>
+	                <h:inputTextarea value="#{usuarioBean.nota.texto}" rows="10" cols="35" styleClass="alpha_latin"/>
+	            </s:decorate>
+            </h:panelGrid>
+			<h:panelGrid>
+				<h:panelGrid columns="2">
+					<a4j:commandLink value="Salvar" action="#{usuarioBean.adicionarNota()}" status="noStatus"
+						reRender="tabPanelNotas" id="btnAddNota" oncomplete="#{rich:component('panelIncluirNota')}.hide();"/>
+						
+					<a4j:commandLink value="Cancelar" immediate="true" status="noStatus"
+						onclick="#{rich:component('panelIncluirNota')}.hide();"/>
+				</h:panelGrid>
+			</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+</ui:define>
+</ui:composition>

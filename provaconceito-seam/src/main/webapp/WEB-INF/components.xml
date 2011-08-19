@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:transaction="http://jboss.com/products/seam/transaction"
+	xmlns:ui="http://jboss.com/products/seam/ui"
+	xmlns:core="http://jboss.com/products/seam/core" xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:drools="http://jboss.com/products/seam/drools" xmlns:bpm="http://jboss.com/products/seam/bpm"
+	xmlns:security="http://jboss.com/products/seam/security" xmlns:mail="http://jboss.com/products/seam/mail"
+	xmlns:web="http://jboss.com/products/seam/web" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
+                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd
+                 http://jboss.com/products/seam/ui http://jboss.com/products/seam/ui-2.2.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd
+                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.2.xsd
+                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.2.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd
+                 http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.2.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd">
+ 
+	<core:init debug="true" jndi-pattern="@jndiPattern@" />
+ 
+	<core:manager concurrent-request-timeout="500"
+		conversation-timeout="120000" conversation-id-parameter="cid"
+		parent-conversation-id-parameter="pid" />
+
+	<web:hot-deploy-filter url-pattern="*.seam" />
+
+	<persistence:entity-manager-factory
+		persistence-unit-name="application" name="entityManagerFactory"
+		auto-create="true"/>
+
+	<persistence:managed-persistence-context auto-create="true" 
+		name="entityManager" entity-manager-factory="#{entityManagerFactory}" />
+	
+	<transaction:entity-transaction  entity-manager="#{entityManager}"/>
+	
+	<ui:jpa-entity-loader entity-manager="#{entityManager}" />
+	
+	<component name="org.jboss.seam.transaction.facesTransactionEvents">
+		<property name="transactionFailedMessageEnabled">false</property>
+	</component>
+	
+	<web:multipart-filter create-temp-files="false" 
+                          max-request-size="2000000" 
+                          url-pattern="/*"/>
+</components>

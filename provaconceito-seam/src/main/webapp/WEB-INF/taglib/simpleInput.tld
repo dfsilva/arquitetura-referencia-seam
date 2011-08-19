@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+ <tlib-version>1.0</tlib-version>
+
+ <short-name>simpleInput</short-name>
+ <uri>http://labs.jboss.com/jbossrichfaces/ui/simpleInput</uri>
+
+
+
+					 <tag>
+	  	  <description></description>
+	  	  	  		  <name>simpleInput</name>
+	  	  <tag-class>org.richfaces.anatel.taglib.SimpleInputTag</tag-class>
+	  <body-content>JSP</body-content>
+	  
+	    		  <attribute>
+	   <description>This attribute assigns an access key to an element. An access key is a single character from the document character set. Note: Authors should consider the input method of the expected reader when specifying an accesskey</description>
+	   <name>accesskey</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>For a user agents that cannot display images, forms, or applets, this attribute specifies alternate text. The language of the alternate text is specified by the lang attribute</description>
+	   <name>alt</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The attribute takes a value-binding expression for a component property of
+a backing bean</description>
+	   <name>binding</name>
+	   	   	   					   	<deferred-value>
+					<type>javax.faces.component.UIComponent</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>Id of Converter to be used or reference to a Converter</description>
+	   <name>converter</name>
+	   	   	   					   	<deferred-value>
+					<type>javax.faces.convert.Converter</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>A ValueExpression enabled attribute that, if present,
+			will be used as the text of the converter message,
+			replacing any message that comes from the converter</description>
+	   <name>converterMessage</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>When set for a form control, this boolean attribute disables the control for your input</description>
+	   <name>disabled</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  	  		  <attribute>
+	   <description>Every component may have a unique id that is automatically created if omitted</description>
+	   <name>id</name>
+	   	   	   		<rtexprvalue>false</rtexprvalue>
+	   		<type>java.lang.String</type>
+	   	  </attribute>
+		  		  <attribute>
+	   <description>A flag indicating that this component value must be converted
+            and validated immediately (that is, during Apply Request Values
+            phase), rather than waiting until a Process Validations phase</description>
+	   <name>immediate</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  	  		  <attribute>
+	   <description>localValueSet</description>
+	   <name>localValueSet</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when the element loses the focus</description>
+	   <name>onblur</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when the element value is changed</description>
+	   <name>onchange</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when the element is clicked</description>
+	   <name>onclick</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when the element is double-clicked</description>
+	   <name>ondblclick</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when the element gets the focus</description>
+	   <name>onfocus</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a key is pressed down over the element</description>
+	   <name>onkeydown</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a key is pressed over the element and released</description>
+	   <name>onkeypress</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a key is released</description>
+	   <name>onkeyup</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a mouse button is pressed down over the element</description>
+	   <name>onmousedown</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a pointer is moved within the element</description>
+	   <name>onmousemove</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a pointer is moved away from the element</description>
+	   <name>onmouseout</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a pointer is moved onto the element</description>
+	   <name>onmouseover</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when a mouse button is released</description>
+	   <name>onmouseup</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>The client-side script method to be called when some text is selected in the text field. This attribute can be used with the INPUT and TEXTAREA elements.</description>
+	   <name>onselect</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>If "false", this component is not rendered</description>
+	   <name>rendered</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>If "true", this component is checked for non-empty input</description>
+	   <name>required</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>A ValueExpression enabled attribute which defines  text of validation message to show, if a required field is missing</description>
+	   <name>requiredMessage</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>This attribute tells the user agent the initial width of the control. The width is given in pixels except when type attribute has the value "text" or "password". In that case, its value refers to the (integer) number of characters</description>
+	   <name>size</name>
+	   	   	   					   	<deferred-value>
+					<type>int</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>CSS style rules to be applied to the component</description>
+	   <name>style</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>Assigns one or more CSS class names to the component. Corresponds to the HTML "class" attribute.</description>
+	   <name>styleClass</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>This attribute specifies the position of the current element in the tabbing order for the current document. This value must be a number between 0 and 32767. User agents should ignore leading zeros</description>
+	   <name>tabindex</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>valid</description>
+	   <name>valid</name>
+	   	   	   					   	<deferred-value>
+					<type>boolean</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>MethodBinding pointing at a method that is called during
+            Process Validations phase of the request processing lifecycle,
+            to validate the current value of this component</description>
+	   <name>validator</name>
+	   	   	   						<deferred-method>
+					<method-signature>void validator(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+				</deferred-method>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>A ValueExpression enabled attribute that, if present,
+			will be used as the text of the validator message,
+			replacing any message that comes from the validator</description>
+	   <name>validatorMessage</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.String</type>
+				</deferred-value>
+				   	  </attribute>
+		  	  		  <attribute>
+	   <description>The current value of this component</description>
+	   <name>value</name>
+	   	   	   					   	<deferred-value>
+					<type>java.lang.Object</type>
+				</deferred-value>
+				   	  </attribute>
+		  		  <attribute>
+	   <description>Listener for value changes</description>
+	   <name>valueChangeListener</name>
+	   	   	   						<deferred-method>
+					<method-signature>void valueChangeListener(javax.faces.event.ValueChangeEvent)</method-signature>
+				</deferred-method>
+				   	  </attribute>
+		  	  	  
+	</tag>
+	
+				
+  
+</taglib>

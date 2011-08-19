@@ -1,0 +1,79 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Usuario Details</f:facet>
+
+        <s:decorate id="nome" template="/layout/display.xhtml">
+            <ui:define name="label">Nome</ui:define>
+            <h:outputText value="#{usuarioBean.data.value.nome}"/>
+        </s:decorate>
+
+        <s:decorate id="senha" template="/layout/display.xhtml">
+            <ui:define name="label">Senha</ui:define>
+            <h:outputText value="#{usuarioBean.data.value.senha}"/>
+        </s:decorate>
+
+        <s:decorate id="email" template="/layout/display.xhtml">
+            <ui:define name="label">Email</ui:define>
+            <h:outputText value="#{usuarioBean.data.value.email}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/pages/usuario/UsuarioEdit.xhtml"
+                    id="edit"
+                 value="Editar"/>
+
+        <s:button view="/pages/usuario/#{empty from ? 'UsuarioList' : from}.xhtml"
+                    id="voltar"
+                 value="Voltar"/>
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+	    <rich:tab>
+	        <f:facet name="label">
+	            <h:panelGroup>
+	            	<h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>
+	            	Notas
+	            </h:panelGroup>
+	        </f:facet>
+	        
+		    <h:form styleClass="association" id="notasChildren">
+		        <h:outputText value="O usuario nao possui notas associadas."
+		                   rendered="#{empty usuarioBean.data.value.notas}"/>
+		        <rich:dataTable value="#{usuarioBean.data.value.notas}" var="_nota"
+		                  rendered="#{not empty usuarioBean.data.value.notas}" rowClasses="rvgRowOne,rvgRowTwo"
+		                        id="notasTable">
+		            <rich:column sortBy="#{_nota.id}">
+		                <f:facet name="header">Id</f:facet>
+		                <h:outputText value="#{_nota.id}"/>
+		            </rich:column>
+		            <rich:column sortBy="#{_nota.titulo}">
+		                <f:facet name="header">Titulo</f:facet>
+		                <h:outputText value="#{_nota.titulo}"/>
+		            </rich:column>
+		            <rich:column sortBy="#{_nota.texto}">
+		                <f:facet name="header">Texto</f:facet>
+		                <h:outputText value="#{_nota.texto}"/>
+		            </rich:column>
+		        </rich:dataTable>
+		    </h:form>
+	    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

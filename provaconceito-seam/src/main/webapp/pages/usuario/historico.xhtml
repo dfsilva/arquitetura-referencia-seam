@@ -1,0 +1,88 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j"
+    template="/layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="usuarioSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Usuario Search Filter" switchType="ajax">
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Nome</ui:define>
+                <h:inputText id="nome" value="#{usuarioBean.data.value.nome}"/>
+            </s:decorate>
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Senha</ui:define>
+                <h:inputText id="senha" value="#{usuarioBean.data.value.senha}"/>
+            </s:decorate>
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputText id="email" value="#{usuarioBean.data.value.email}"/>
+            </s:decorate>
+            
+        </rich:simpleTogglePanel>
+
+
+    <rich:panel id="panelResultado">
+        <f:facet name="header">
+         	Resultado da busca de Histórico Usuarios (#{empty usuarioBean.revisoes ? 0 : usuarioBean.revisoes.size()})
+        </f:facet>
+        
+   		<div class="results" id="usuarioList">
+
+		    <rich:dataTable id="usuarioList" var="rev" value="#{usuarioBean.revisoes}">
+		    	<h:column>
+		            <f:facet name="header">
+		                <h:outputText value="Numero Revisao" />
+		            </f:facet>
+		            <h:outputText value="#{rev[1].nuRevisao}"/>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		                <h:outputText value="Nome Usuario" />
+		            </f:facet>
+		            <h:outputText value="#{rev[1].noUsuario}"/>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		              	<h:outputText value="Data Hora Atualizacao" />
+		            </f:facet>
+		            <h:outputText value="#{rev[1].dhAtualizacao}">
+		            	<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+		            </h:outputText>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		               	<h:outputText value="Tipo Alteracao" />
+		            </f:facet>
+         			<h:outputText value="Inclusão" rendered="#{rev[2] eq 'ADD'}"/>
+					<h:outputText value="Alteração" rendered="#{rev[2] eq 'MOD'}"/>
+					<h:outputText value="Remoção" rendered="#{rev[2] eq 'DEL'}"/>
+		        </h:column>
+		   
+		        <rich:column styleClass="action">
+		            <f:facet name="header">Acao</f:facet>
+		            <h:commandLink action="visualizar" value="Visualizar">
+		             	<f:setPropertyActionListener value="#{rev[0]}" target="#{usuarioBean.data.value}" />
+		            </h:commandLink>
+		        </rich:column>
+		    </rich:dataTable>
+    </div>
+    </rich:panel>
+ </h:form>
+    <s:div styleClass="actionButtons">
+        <s:button view="/pages/usuario/#{empty from ? 'UsuarioList' : from}.xhtml" id="voltar" 
+        	value="Voltar">
+        </s:button>
+    </s:div>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Persistence deployment descriptor for dev profile -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+
+	<persistence-unit name="application" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>br.gov.anatel.provaconceitoseam.domain.Usuario</class>
+		<class>br.gov.anatel.provaconceitoseam.domain.Nota</class>
+		
+		<!-- Tabela de Revisao de Auditoria -->
+		<class>br.gov.anatel.provaconceitoseam.domain.Revisao</class>
+		
+		<properties>
+			<property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+ 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.connection.url"
+				value="jdbc:derby:prova_conceito_db;create=true" /> 
+			
+			<!--Inicio - Hibernate envers -->
+			<property name="hibernate.ejb.event.post-insert"
+				value="org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener" />
+			<property name="hibernate.ejb.event.post-update"
+				value="org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener" />
+			<property name="hibernate.ejb.event.post-delete"
+				value="org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener" />
+
+			<property name="hibernate.ejb.event.pre-collection-update"
+				value="org.hibernate.envers.event.AuditEventListener" />
+			<property name="hibernate.ejb.event.pre-collection-remove"
+				value="org.hibernate.envers.event.AuditEventListener" />
+			<property name="hibernate.ejb.event.post-collection-recreate"
+				value="org.hibernate.envers.event.AuditEventListener" />
+			<!--Fim - Hibernate envers -->
+			<!-- 
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="" /> -->
+		</properties>
+	</persistence-unit>
+
+</persistence>

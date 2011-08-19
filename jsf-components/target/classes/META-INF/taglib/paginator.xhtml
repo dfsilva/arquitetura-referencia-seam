@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	<ui:component>
+		<style>
+			.rich-dtascroller-table {
+			    border-style: solid;
+			    border-width: 1px;
+			        background-color: #FFFFFF;
+			    border-color: #BED6F8;
+			}
+			.rich-datascr-button, .rich-datascr-ctrls-separator {
+			    border-style: solid;
+			    border-width: 1px;
+			    cursor: pointer;
+			    text-align: center;
+			    width: 25px;
+			}
+			.rich-datascr-button-dsbld {
+			    cursor: default;
+			}
+			.rich-datascr-act {
+			    border-top-style: solid;
+			    border-top-width: 2px;
+			    text-align: center;
+			    width: 25px;
+			}
+			.rich-datascr-inact {
+			    border-top-style: solid;
+			    border-top-width: 2px;
+			    cursor: pointer;
+			    text-align: center;
+			    width: 25px;
+			}
+			.rich-datascr-button, .rich-datascr-ctrls-separator {
+			    background-color: #ECF4FE;
+			    border-color: #BED6F8;
+			    font-family: Arial,Verdana,sans-serif;
+			    font-size: 11px;
+			}
+			.rich-datascr-button-dsbld {
+			    color: #BED6F8;
+			}
+			.rich-datascr-act {
+			    border-top-color: #000000;
+			    color: #000000;
+			    font-family: Arial,Verdana,sans-serif;
+			    font-size: 11px;
+			}
+			.rich-datascr-inact {
+			    border-top-color: #BED6F8;
+			    color: #BED6F8;
+			    font-family: Arial,Verdana,sans-serif;
+			    font-size: 11px;
+			}
+		</style>
+	
+		<h:panelGroup id="#{id}" rendered="#{rendered}">
+		        <a4j:jsFunction name="inicio" ajaxSingle="true" ignoreDupResponses="true" reRender="#{for}" 
+		        	action="#{expression}">
+		        	<a4j:actionparam name="param1" value="0" assignTo="#{pageNumber}"/>
+		        </a4j:jsFunction>
+		       
+		        <a4j:jsFunction name="anterior" ajaxSingle="true" ignoreDupResponses="true" reRender="#{for}"
+		        	action="#{expression}">
+		        	<a4j:actionparam name="param1" value="#{pageNumber -1}" assignTo="#{pageNumber}"/>
+		        </a4j:jsFunction>
+		        
+		        <a4j:jsFunction name="proximo" ajaxSingle="true" ignoreDupResponses="true" reRender="#{for}" 
+		        	action="#{expression}">
+		        	<a4j:actionparam name="param1" value="#{pageNumber +1}" assignTo="#{pageNumber}"/>
+		        </a4j:jsFunction>
+		        
+		        <a4j:jsFunction name="final" ajaxSingle="true" ignoreDupResponses="true" reRender="#{for}" 
+		        	action="#{expression}">
+		        	<a4j:actionparam name="param1" value="#{numberOfPages -1}" assignTo="#{pageNumber}"/>
+		        </a4j:jsFunction>
+		        
+		        <a4j:jsFunction name="ir" ajaxSingle="true" ignoreDupResponses="true" reRender="#{for}" 
+		        	action="#{expression}">
+		        	<a4j:actionparam name="param1" assignTo="#{pageNumber}"/>
+		        </a4j:jsFunction>
+			        
+			        <table cellspacing="1" cellpadding="0" border="0" class="rich-dtascroller-table" id="#{id}:table" style="text-align:center">
+						<tbody>
+							<tr>
+							<td class="#{pageNumber eq 0 ? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}" 
+								onclick="#{pageNumber eq 0 ? 'return false;' : 'inicio();'}">««</td>
+							<td class="#{pageNumber eq 0 ? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}" 
+								onclick="#{pageNumber eq 0 ? 'return false;' : 'anterior();'}">«</td>
+							<td class="#{pageNumber eq 0 ? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}">
+							</td>
+								
+								<a4j:repeat value="#{paginas}" var="i" rowKeyVar="ind">
+									<td class="#{i eq (pageNumber + 1) ? 'rich-datascr-act' : 'rich-datascr-inact'}" onclick="ir(#{i-1});">
+										#{i}
+									</td>
+								</a4j:repeat>
+								
+							<td class="#{((pageNumber +1) eq numberOfPages) or numberOfPages eq 0? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}">
+							</td>
+							
+							<td class="#{(pageNumber +1) eq numberOfPages or numberOfPages eq 0  ? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}" 
+								onclick="#{((pageNumber +1) eq numberOfPages) or numberOfPages eq 0 ? 'return false;' : 'proximo();'}">»</td>
+							<td class="#{((pageNumber +1) eq numberOfPages) or numberOfPages eq 0 ? 'rich-datascr-button-dsbld rich-datascr-button' : 'rich-datascr-button'}" 
+								onclick="#{((pageNumber +1) eq numberOfPages) or numberOfPages eq 0 ? 'return false;' : 'final();'}">»»</td>
+							</tr>
+						</tbody>
+					</table>
+		</h:panelGroup>
+	</ui:component>
+</html>

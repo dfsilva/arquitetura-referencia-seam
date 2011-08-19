@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+                        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>Componentes</short-name>
+	<uri>http://www.diegosilva.com.br/jsf</uri>
+	<display-name>Biblioteca de Componentes DBA/Anatel</display-name>
+	<tag>
+		<name>entidadeSelectGroup</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Cria um combo box para entidade com grupos.
+        </description>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Identificação do componente
+            </description>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Valor atribuido no componente
+            </description>
+		</attribute>
+		<attribute>
+			<name>itens</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Items que serão iterados pelo componente.
+            </description>
+		</attribute>
+		<attribute>
+			<name>exibirSelecione</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Exibir ou não o campo selecione
+            </description>
+		</attribute>
+		<attribute>
+			<name>disabled</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Abilitar ou nao a selecao do campo.
+            </description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>paginator</name>
+		<tag-class />
+		<body-content>empty</body-content>
+		<description>
+			Paginador estilo richfaces com paginação de banco de dados
+        </description>
+        
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Identificação do componente
+            </description>
+		</attribute>
+		
+		<attribute>
+			<name>for</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Componente ao qual o paginador estará ligado
+            </description>
+		</attribute>
+		
+		
+		<attribute>
+			<name>pageNumber</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Valor do atributo o qual está armazenado o numero da página.
+            </description>
+		</attribute>
+		
+		<attribute>
+			<name>expression</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Expressao de um método get que deve retornar uma MethodExpression
+				do método que será invocado pela pesquisa.
+            </description>
+		</attribute>
+		
+		<attribute>
+			<name>numberOfPages</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Propriedade que deve retornar o numero de registros retornado na 
+				consulta.
+            </description>
+		</attribute>
+		
+		<attribute>
+			<name>rendered</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Indica a condicao para que o componente seja renderizado.
+            </description>
+		</attribute>
+		
+		<attribute>
+			<name>paginas</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+			<description>
+				Lista para renderizar as paginas
+            </description>
+		</attribute>
+	</tag>
+</taglib>

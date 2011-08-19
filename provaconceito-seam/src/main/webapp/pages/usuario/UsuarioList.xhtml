@@ -1,0 +1,102 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j"
+    template="/layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="usuarioSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Usuario Search Filter" switchType="ajax">
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Nome</ui:define>
+                <h:inputText id="nome" value="#{usuarioBean.objPesquisa.nome}"/>
+            </s:decorate>
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Senha</ui:define>
+                <h:inputText id="senha" value="#{usuarioBean.objPesquisa.senha}"/>
+            </s:decorate>
+
+            <s:decorate template="/layout/display.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputText id="email" value="#{usuarioBean.objPesquisa.email}"/>
+            </s:decorate>
+            
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+           <a:commandButton value="#{messages.consultar}" action="#{usuarioBean.findAllByExample()}"
+            	reRender="panelResultado"/>
+            	
+           <a:commandButton value="Gerar Erro" action="#{usuarioBean.gerarErro()}"/>
+        </div>
+
+
+    <rich:panel id="panelResultado">
+        <f:facet name="header">
+         	Resultado da busca de Usuarios (#{empty usuarioBean.list ? 0 : usuarioBean.list.size})
+        </f:facet>
+        
+   		<div class="results" id="usuarioList">
+
+	    <h:outputText value="A busca de usuarios nao retornou nenhum resultado."
+	               rendered="#{empty usuarioBean.list}"/>
+
+		    <rich:dataTable id="usuarioList" var="_usuario" value="#{usuarioBean.list}" rendered="#{not empty usuarioBean.list}">
+		        <h:column>
+		            <f:facet name="header">
+		                <h:outputText value="ID" />
+		            </f:facet>
+		            <h:outputText value="#{_usuario.id}"/>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		              	<h:outputText value="Nome" />
+		            </f:facet>
+		            <h:outputText value="#{_usuario.nome}"/>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		               	<h:outputText value="Senha" />
+		            </f:facet>
+		            <h:outputText value="#{_usuario.senha}"/>
+		        </h:column>
+		        <h:column>
+		            <f:facet name="header">
+		                <h:outputText value="Email" />
+		            </f:facet>
+		            <h:outputText value="#{_usuario.email}"/>
+		        </h:column>
+		        <rich:column styleClass="action">
+		            <f:facet name="header">Acao</f:facet>
+		            <h:commandLink action="visualizar" value="Visualizar">
+		             	<f:setPropertyActionListener value="#{_usuario}" target="#{usuarioBean.data.value}" />
+		            </h:commandLink>
+		            #{' '}
+		            <h:commandLink action="editar" value="Editar">
+		             	<f:setPropertyActionListener value="#{_usuario}" target="#{usuarioBean.data.value}" />
+		            </h:commandLink>
+		            #{' '}
+		            <h:commandLink action="historico" value="Historico">
+		             	<f:setPropertyActionListener value="#{_usuario}" target="#{usuarioBean.data.value}" />
+		            </h:commandLink>
+		        </rich:column>
+		    </rich:dataTable>
+    </div>
+    </rich:panel>
+ </h:form>
+    <s:div styleClass="actionButtons">
+        <s:button view="/pages/usuario/UsuarioEdit.xhtml" id="create" 
+        	propagation="none" value="Criar Usuário">
+            <f:param name="from" value="UsuarioList"/>
+        </s:button>
+    </s:div>
+</ui:define>
+</ui:composition>

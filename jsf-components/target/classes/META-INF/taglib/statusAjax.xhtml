@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:a4j="https://ajax4jsf.dev.java.net/ajax" 
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich">
+
+	<rich:modalPanel id="mp" minHeight="55"  minWidth="200" height="75" width="300" zindex="6000">
+		<div class="status">
+			<a4j:status id="statusPopup" onstart="Richfaces.showModalPanel('mp')" onstop="Richfaces.hideModalPanel('mp')"/>
+			<h:panelGroup>
+				<h:graphicImage value="/jsfcomponents/resources/img/aguarde.gif"/>
+			</h:panelGroup>
+		</div>
+	</rich:modalPanel>
+		
+</ui:composition>

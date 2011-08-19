@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+       no-conversation-view-id="/home.xhtml">
+
+    <page view-id="*"> 
+        <navigation>
+            <rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        </navigation>
+    </page>
+
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/errorPages/error.xhtml">
+            <message severity="warn">Entidade não encontrada</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/errorPages/error.xhtml">
+             <message severity="warn">Entidade não encontrada</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/errorPages/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/errorPages/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException">
+        <redirect view-id="/errorPages/error.xhtml">
+            <message severity="warn">Sua sessão expirou tente novamente!</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/errorPages/error.xhtml">
+            <message severity="error">ACESSO NEGADO</message>
+        </redirect>
+    </exception>
+    
+</pages>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib xmlns="http://java.sun.com/JSF/Facelet">
+  <namespace>http://labs.jboss.com/jbossrichfaces/ui/simpleInput</namespace>
+
+
+
+    <tag>
+    <tag-name>simpleInput</tag-name>
+    <component>
+	  <component-type>org.richfaces.anatel.SimpleInput</component-type>
+    	  <renderer-type>org.richfaces.anatel.SimpleInputRenderer</renderer-type>
+            </component>
+  </tag>
+  
+
+
+
+
+  </facelet-taglib>
