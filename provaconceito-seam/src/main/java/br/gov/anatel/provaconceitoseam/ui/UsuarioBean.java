@@ -1,26 +1,24 @@
 package br.gov.anatel.provaconceitoseam.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
+import br.com.diegosilva.infraseam.dto.DefaultDTO;
+import br.com.diegosilva.infraseam.ui.SeamAbstractUI;
 import br.gov.anatel.provaconceitoseam.domain.Anexo;
 import br.gov.anatel.provaconceitoseam.domain.Nota;
 import br.gov.anatel.provaconceitoseam.domain.Usuario;
 import br.gov.anatel.provaconceitoseam.model.NotaModel;
 import br.gov.anatel.provaconceitoseam.model.iface.IUsuarioModel;
 
-import com.google.common.collect.Lists;
-
 @Name("usuarioBean")
 @Scope(ScopeType.CONVERSATION)
-public class UsuarioBean {
+public class UsuarioBean extends SeamAbstractUI<Usuario, DefaultDTO<Usuario>> {
 
 	/**
 	 * Valores a serem checados em ação
@@ -36,30 +34,6 @@ public class UsuarioBean {
 	private int indice2;
 
 	private Nota nota = new Nota();
-
-	private String colunas[];
-	private String linhas[] = { "linha1", "linha2" };
-
-	private List<Usuario> usuarios = Lists.newArrayList(new Usuario("Diego",
-			"123456", "diego@diegosilva.com.br"), new Usuario("aaaaaaaaa2",
-			"2222", "222222@2222.com"), new Usuario("aaaaaaaaa3", "3333",
-			"333@333.com"));
-
-	@Create
-	public void inicializar() {
-		for (Usuario u : usuarios) {
-			u.setNotas(new ArrayList<Nota>());
-			u.getNotas().add(
-					new Nota("Nota 1 " + u.getNome(), "Texto da nota 1 "
-							+ u.getNome()));
-			u.getNotas().add(
-					new Nota("Nota 2 " + u.getNome(), "Texto da nota 2"
-							+ u.getNome()));
-			u.getNotas().add(
-					new Nota("Nota 3 " + u.getNome(), "Texto da nota 3"
-							+ u.getNome()));
-		}
-	}
 
 	@In("notaModel")
 	private NotaModel notaModel;
@@ -130,34 +104,4 @@ public class UsuarioBean {
 	public void setUsuarioModel(IUsuarioModel usuarioModel) {
 		this.usuarioModel = usuarioModel;
 	}
-
-	public String[] getColunas() {
-		List<String> retorno = new ArrayList<String>();
-		
-		for (Nota n : usuarios.get(0).getNotas()) {
-			retorno.add(n.getTitulo());
-		}
-		return (String[]) retorno.toArray();
-	}
-
-	public void setColunas(String[] colunas) {
-		this.colunas = colunas;
-	}
-
-	public String[] getLinhas() {
-		return linhas;
-	}
-
-	public void setLinhas(String[] linhas) {
-		this.linhas = linhas;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
 }

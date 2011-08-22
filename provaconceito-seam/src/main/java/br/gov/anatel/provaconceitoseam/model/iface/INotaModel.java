@@ -1,5 +1,7 @@
 package br.gov.anatel.provaconceitoseam.model.iface;
 
-public interface INotaModel {
+import br.com.diegosilva.infraseam.model.iface.IGenericSeamModel;
+
+public interface INotaModel extends IGenericSeamModel {
 
 }

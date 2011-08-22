@@ -1,5 +1,7 @@
 package br.gov.anatel.provaconceitoseam.dao.iface;
 
-public interface IUsuarioDAO {
+import br.com.diegosilva.infraseam.dao.iface.IGenericDAO;
+
+public interface IUsuarioDAO extends IGenericDAO {
 
 }

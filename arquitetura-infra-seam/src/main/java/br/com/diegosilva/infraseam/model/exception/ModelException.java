@@ -6,7 +6,7 @@ import org.jboss.seam.annotations.ApplicationException;
 public class ModelException extends Exception {
 
 	/**
-	 * Variável serialVersionUID do tipo long.
+	 * Variavel serialVersionUID do tipo long.
 	 */
 	private static final long serialVersionUID = 1L;
 

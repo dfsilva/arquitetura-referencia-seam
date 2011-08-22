@@ -10,7 +10,7 @@ import org.jboss.seam.annotations.TransactionPropagationType;
 import org.jboss.seam.annotations.Transactional;
 
 import br.com.diegosilva.infraseam.dao.iface.IGenericDAO;
-import br.com.diegosilva.infraseam.entity.DefaultEntity;
+import br.com.diegosilva.infraseam.entity.iface.IDefaultEntity;
 import br.com.diegosilva.infraseam.exception.ValidateException;
 import br.com.diegosilva.infraseam.model.exception.ModelException;
 import br.com.diegosilva.infraseam.model.iface.IGenericSeamModel;
@@ -32,7 +32,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 	private IGenericDAO genericDao;
 
 	@Transactional(TransactionPropagationType.REQUIRED)
-	public <E extends DefaultEntity<?>> void save(E obj) throws ModelException {
+	public <E extends IDefaultEntity<?>> void save(E obj) throws ModelException {
 		try {
 			getGenericDao().save(obj);
 		} catch (Exception e) {
@@ -41,7 +41,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 	}
 
 	@Transactional(TransactionPropagationType.REQUIRED)
-	public <E extends DefaultEntity<?>> void saveWithValidation(E obj)
+	public <E extends IDefaultEntity<?>> void saveWithValidation(E obj)
 			throws ModelException, ValidateException {
 		try {
 			ValidateUtils.validate(obj);
@@ -54,7 +54,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 	}
 
 	@Transactional(TransactionPropagationType.REQUIRED)
-	public <E extends DefaultEntity<?>> void delete(E obj)
+	public <E extends IDefaultEntity<?>> void delete(E obj)
 			throws ModelException {
 		try {
 			getGenericDao().delete(obj);
@@ -63,7 +63,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> E findByPk(E obj) throws ModelException {
+	public <E extends IDefaultEntity<?>> E findByPk(E obj) throws ModelException {
 		try {
 			return getGenericDao().findByPk(obj);
 		} catch (Exception e) {
@@ -71,7 +71,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> Collection<E> findAll(E obj)
+	public <E extends IDefaultEntity<?>> Collection<E> findAll(E obj)
 			throws ModelException {
 		try {
 			return getGenericDao().findAll(obj);
@@ -80,7 +80,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> Collection<E> findByExample(E obj)
+	public <E extends IDefaultEntity<?>> Collection<E> findByExample(E obj)
 			throws ModelException {
 		try {
 			return (Collection<E>) getGenericDao().findByExample(obj);
@@ -89,7 +89,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> Collection<E> findByExampleWithParams(
+	public <E extends IDefaultEntity<?>> Collection<E> findByExampleWithParams(
 			E obj, boolean enableLike, boolean excludeNone, boolean ignoreCase)
 			throws ModelException {
 		try {
@@ -100,7 +100,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> Collection<E> findAll(E obj,
+	public <E extends IDefaultEntity<?>> Collection<E> findAll(E obj,
 			String where, String orderBy) throws ModelException {
 		try {
 			return getGenericDao().findAll(obj, where, orderBy);
@@ -109,7 +109,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> Collection<E> findAll(
+	public <E extends IDefaultEntity<?>> Collection<E> findAll(
 			Class<E> entityClass, String where, String orderBy)
 			throws ModelException {
 		try {
@@ -120,7 +120,7 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends DefaultEntity<?>> List<Object[]> getRevisions(E obj)
+	public <E extends IDefaultEntity<?>> List<Object[]> getRevisions(E obj)
 			throws ModelException {
 		try {
 			return getGenericDao().getRevisions(obj);

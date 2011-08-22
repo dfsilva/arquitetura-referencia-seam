@@ -2,7 +2,14 @@ package br.com.diegosilva.infraseam.entity;
 
 import java.io.Serializable;
 
-public interface DefaultEntity<E extends Serializable> {
+import br.com.diegosilva.infraseam.entity.iface.IDefaultEntity;
 
-	E getId();
+public abstract class DefaultEntity<E extends Serializable> implements
+		IDefaultEntity<E> {
+
+	/**
+	 * Serial UID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

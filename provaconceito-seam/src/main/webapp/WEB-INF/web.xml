@@ -61,14 +61,6 @@
 		<url-pattern>*.seam</url-pattern>
 	</servlet-mapping>
 	<filter>
-		<filter-name>persistenceFilter</filter-name>
-		<filter-class>br.gov.anatel.provaconceitoseam.filter.PersistenceFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>persistenceFilter</filter-name>
-		<url-pattern>*.seam</url-pattern>
-	</filter-mapping>
-	<filter>
 		<filter-name>Seam Filter</filter-name>
 		<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
 	</filter>
@@ -80,7 +72,7 @@
 		<servlet-name>Seam Resource Servlet</servlet-name>
 		<servlet-class>org.jboss.seam.servlet.SeamResourceServlet</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>Seam Resource Servlet</servlet-name>
 		<url-pattern>/seam/resource/*</url-pattern>

@@ -15,7 +15,7 @@ import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.log.Log;
 
 import br.com.diegosilva.infraseam.dto.DefaultDTO;
-import br.com.diegosilva.infraseam.entity.DefaultEntity;
+import br.com.diegosilva.infraseam.entity.iface.IDefaultEntity;
 import br.com.diegosilva.infraseam.exception.ValidateException;
 import br.com.diegosilva.infraseam.model.iface.IGenericSeamModel;
 import br.com.diegosilva.infraseam.util.Constantes;
@@ -23,7 +23,7 @@ import br.com.diegosilva.infraseam.util.FacesUtil;
 
 import com.google.common.collect.Lists;
 
-public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends DefaultDTO<E>> {
+public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends DefaultDTO<E>> {
 
 	private Class<E> entityClass;
 	private Class<T> dtoClass;
@@ -158,6 +158,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	/**
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public Class<E> getEntityClass() {
 		if (entityClass == null) {
 			Type type = getClass().getGenericSuperclass();
@@ -166,7 +167,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 				if (paramType.getActualTypeArguments().length == 2) {
 					if (paramType.getActualTypeArguments()[0] instanceof TypeVariable) {
 						throw new IllegalArgumentException(
-								"Não foi possível encontrar classe de entidade por reflexão");
+								"Nao foi possivel encontrar classe de entidade por reflexao");
 					} else {
 						entityClass = (Class<E>) paramType
 								.getActualTypeArguments()[0];
@@ -176,12 +177,13 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 				}
 			} else {
 				throw new IllegalArgumentException(
-						"Não foi possível encontrar classe de entidade por reflexão");
+						"Nao foi possivel encontrar classe de entidade por reflexao");
 			}
 		}
 		return entityClass;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Class<T> getDtoClass() {
 		if (dtoClass == null) {
 			Type type = getClass().getGenericSuperclass();
@@ -190,7 +192,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 				if (paramType.getActualTypeArguments().length == 2) {
 					if (paramType.getActualTypeArguments()[1] instanceof TypeVariable) {
 						throw new IllegalArgumentException(
-								"Não foi possível encontrar classe de DTO por reflexão");
+								"Nao foi possivel encontrar classe de entidade por reflexao");
 					} else {
 						try {
 							dtoClass = (Class<T>) paramType
@@ -205,14 +207,14 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 				}
 			} else {
 				throw new IllegalArgumentException(
-						"Não foi possível encontrar classe de DTO por reflexão");
+						"Nao foi possivel encontrar classe de entidade por reflexao");
 			}
 		}
 		return dtoClass;
 	}
 
 	/**
-	 * Método getter para a variavel data.
+	 * Metodo getter para a variavel data.
 	 * 
 	 * @return the data - data.
 	 */
@@ -231,7 +233,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método setter para o campo data.
+	 * Metodo setter para o campo data.
 	 * 
 	 * @param data
 	 *            the data to set data.
@@ -241,7 +243,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método getter para a variavel list.
+	 * Metodo getter para a variavel list.
 	 * 
 	 * @return the list - list.
 	 */
@@ -253,7 +255,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método setter para o campo list.
+	 * Metodo setter para o campo list.
 	 * 
 	 * @param list
 	 *            the list to set list.
@@ -263,7 +265,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método getter para a variavel objPesquisa.
+	 * Metodo getter para a variavel objPesquisa.
 	 * 
 	 * @return the objPesquisa - objPesquisa.
 	 */
@@ -279,7 +281,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método setter para o campo objPesquisa.
+	 * Metodo setter para o campo objPesquisa.
 	 * 
 	 * @param objPesquisa
 	 *            the objPesquisa to set objPesquisa.
@@ -289,7 +291,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método getter para a variavel revisoes.
+	 * Metodo getter para a variavel revisoes.
 	 * 
 	 * @return the revisoes - revisoes.
 	 */
@@ -306,7 +308,7 @@ public abstract class SeamAbstractUI<E extends DefaultEntity<?>, T extends Defau
 	}
 
 	/**
-	 * Método setter para o campo revisoes.
+	 * Metodo setter para o campo revisoes.
 	 * 
 	 * @param revisoes
 	 *            the revisoes to set revisoes.

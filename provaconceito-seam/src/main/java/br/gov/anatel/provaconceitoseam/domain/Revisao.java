@@ -1,6 +1,5 @@
 package br.gov.anatel.provaconceitoseam.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -17,6 +16,8 @@ import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
+import br.com.diegosilva.infraseam.entity.DefaultEntity;
+
 /**
  * Classe representante da Tabela TB_AUDITORIA.
  * 
@@ -25,7 +26,7 @@ import org.hibernate.envers.RevisionTimestamp;
 @Entity
 @Table(name = "TB_REVISAO")
 @RevisionEntity(RevisaoListener.class)
-public class Revisao implements Serializable {
+public class Revisao extends DefaultEntity<Long> {
 
 	/**
 	 * serial uid.
@@ -41,13 +42,6 @@ public class Revisao implements Serializable {
 	@Column(name = "NU_REVISAO")
 	@RevisionNumber
 	private Long nuRevisao;
-
-	/**
-	 * Variavel timestamp do tipo <code>Long</code>.
-	 */
-	@RevisionTimestamp
-	@Column(name = "NU_TIMESTAMP")
-	private Long timestamp;
 
 	/**
 	 * Numero matricula empregado.
@@ -71,6 +65,7 @@ public class Revisao implements Serializable {
 	 * data hora atualizacao.
 	 */
 	@Basic(optional = false)
+	@RevisionTimestamp
 	@Column(name = "DH_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dhAtualizacao;
@@ -168,26 +163,6 @@ public class Revisao implements Serializable {
 	 */
 	public Long getId() {
 		return getNuRevisao();
-	}
-
-	/**
-	 * Retorna o Atributo <code>timestamp</code> do tipo <code>Long</code>.
-	 * 
-	 * @return the timestamp
-	 */
-	public Long getTimestamp() {
-		return timestamp;
-	}
-
-	/**
-	 * Seta o Para½mero <code>timestamp</code> recebido no atributo
-	 * <code>timestamp</code> do tipo <code>Long</code>.
-	 * 
-	 * @param timestamp
-	 *            the timestamp to set
-	 */
-	public void setTimestamp(Long timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	public String getLoginUsuario() {
