@@ -11,14 +11,6 @@
 
 <ui:define name="body">
 	
-	<a4j:region>
-		<h:form>
-			<a4j:queue id="filaPoll" ignoreDupResponce="true"/>
-			<a4j:poll id="poll" interval="3000" enabled="true" action="#{usuarioBean.atualizaIndice2()}" reRender="indice2"/>
-			<a4j:poll id="poll2" interval="3000" enabled="true" action="#{usuarioBean.atualizaIndice()}" reRender="indice1"/>
-		</h:form>
-	</a4j:region>
-
     <h:form id="formUsuario" styleClass="edit">
 		<h:inputHidden value="#{usuarioBean.data.value.id}" converter="javax.faces.Integer" />
 		
@@ -50,40 +42,6 @@
                 <h:inputText id="email" size="30" maxlength="100" 
                 	value="#{usuarioBean.data.value.email}"/>
             </s:decorate>
-            
-            <s:decorate id="checkField" template="/layout/edit.xhtml"> 
-                <ui:define name="label">Teste CheckBox</ui:define>
-                <h:selectManyCheckbox value="#{usuarioBean.valoresCheckSelecionado}" styleClass="now_rap" style="width: 600px;">
-                	<s:selectItems value="#{usuarioBean.valoresCheck}" var="c" label="#{c}" itemValue="#{c}"/>
-                </h:selectManyCheckbox>
-            </s:decorate>
-            
-             <s:decorate id="uploadField" template="/layout/edit.xhtml"> 
-	             <h:outputText value="Anexar Documento" />
-				 <h:panelGrid columns="2">
-					 <a4j:region>
-						<rich:fileUpload fileUploadListener="#{usuarioBean.uploadListener}" 
-			                id="uploadAnexo" immediateUpload="false" listHeight="60px" doneLabel="Finalizado"
-			                uploadControlLabel="Enviar" ajaxSingle="true" cancelEntryControlLabel="Cancelar" addControlLabel="Adicionar"
-			                acceptedTypes="pdf, doc, xls" autoclear="true" maxFilesQuantity="20" sizeErrorLabel="Tamanho do arquivo invalido" >
-			                <a4j:support event="onuploadcomplete" reRender="tableFilesUploaded"/>
-			            </rich:fileUpload>
-			         </a4j:region>
-		             <h:outputText value="(pdf, doc, xls)"/>
-		            
-			          <rich:dataTable value="#{usuarioBean.anexos}"	width="401px" var="f" id="tableFilesUploaded" 
-			          	rows="4" rowKeyVar="indice">
-						<rich:columnGroup>
-								<rich:column>
-									<h:outputText value="#{f.nome}"/>
-								</rich:column>
-								<rich:column width="10px" styleClass="center">
-									 <a4j:htmlCommandLink action="#{usuarioBean.download(indice)}" value="Download"/>
-								</rich:column>
-						</rich:columnGroup>
-					   </rich:dataTable>
-	            </h:panelGrid>
- 			</s:decorate>
  			
             <div style="clear:both"/>
         </rich:panel>
@@ -116,31 +74,29 @@
 <rich:tabPanel switchType="ajax" id="tabPanelNotas">
     <rich:tab label="Notas" id="notas">
         <h:form styleClass="association" id="notasChildren">
-            <h:outputText value="Não à notas associadas para este usuario."
-                       rendered="#{empty usuarioBean.data.value.notas}"/>
+            <h:outputText value="Não à notas associadas para este usuario." rendered="#{empty usuarioBean.data.value.notas}"/>
             <rich:dataTable value="#{usuarioBean.data.value.notas}"
-                           var="_nota" rowKeyVar="indice"
-                      rendered="#{not empty usuarioBean.data.value.notas}"
-                    rowClasses="rvgRowOne,rvgRowTwo" id="notasTable">
-                <rich:column sortBy="#{_nota.id}">
-                    <f:facet name="header">Id</f:facet>
-                    <h:outputText value="#{_nota.id}"/>
-                </rich:column>
-                <rich:column sortBy="#{_nota.titulo}">
-                    <f:facet name="header">Titulo</f:facet>
-                    <h:outputText value="#{_nota.titulo}"/>
-                </rich:column>
-                <rich:column sortBy="#{_nota.texto}">
-                    <f:facet name="header">Texto</f:facet>
-                    <h:outputText value="#{_nota.texto}"/>
-                </rich:column>
-                <rich:column sortBy="#{_nota.texto}">
-                    <f:facet name="header">Ação</f:facet>
-                    <a4j:commandLink title="Excluir Nota" value="Excluir" action="#{usuarioBean.excluirNota(indice)}" 
-                    	reRender="notasChildren">
-                    	<f:setPropertyActionListener target="#{usuarioBean.nota}" value="#{_nota}"/>
-                    </a4j:commandLink>
-                </rich:column>
+                	var="_nota" rowKeyVar="indice"
+                	rendered="#{not empty usuarioBean.data.value.notas}" rowClasses="rvgRowOne,rvgRowTwo" id="notasTable">
+	                <rich:column sortBy="#{_nota.id}">
+	                    <f:facet name="header">Id</f:facet>
+	                    <h:outputText value="#{_nota.id}"/>
+	                </rich:column>
+	                <rich:column sortBy="#{_nota.titulo}">
+	                    <f:facet name="header">Titulo</f:facet>
+	                    <h:outputText value="#{_nota.titulo}"/>
+	                </rich:column>
+	                <rich:column sortBy="#{_nota.texto}">
+	                    <f:facet name="header">Texto</f:facet>
+	                    <h:outputText value="#{_nota.texto}"/>
+	                </rich:column>
+	                <rich:column sortBy="#{_nota.texto}">
+	                    <f:facet name="header">Ação</f:facet>
+	                    <a4j:commandLink title="Excluir Nota" value="Excluir" action="#{usuarioBean.excluirNota(indice)}" 
+	                    	reRender="notasChildren">
+	                    	<f:setPropertyActionListener target="#{usuarioBean.nota}" value="#{_nota}"/>
+	                    </a4j:commandLink>
+	                </rich:column>
             </rich:dataTable>
         </h:form>
     </rich:tab>
@@ -149,7 +105,7 @@
 <rich:modalPanel id="panelIncluirNota" width="500" height="300">
 			<f:facet name="header">
 				<h:panelGroup>
-					<h:outputText value="Nota"></h:outputText>
+					<h:outputText value="Nota"/>
 				</h:panelGroup>
 			</f:facet>
 			<f:facet name="controls">

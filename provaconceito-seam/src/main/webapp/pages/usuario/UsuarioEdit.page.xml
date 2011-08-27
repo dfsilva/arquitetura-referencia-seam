@@ -18,5 +18,4 @@
 			<redirect view-id="/pages/usuario/UsuarioList.xhtml" />
 		</rule>
 	</navigation>
-
 </page>

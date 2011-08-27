@@ -35,10 +35,10 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	private E objPesquisa;
 
-	@In("genericSeamModel")
-	private IGenericSeamModel genericModel;
-
 	private List<Object[]> revisoes = new ArrayList<Object[]>();
+
+	@In("genericSeamModel")
+	private IGenericSeamModel genericSeamModel;
 
 	@Logger
 	protected Log log;
@@ -58,7 +58,7 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	public List<E> findAll() {
 		try {
-			this.list = (List<E>) getGenericModel().findAll(
+			this.list = (List<E>) getGenericSeamModel().findAll(
 					getData().getValue());
 			return list;
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	public String save() {
 		try {
-			getGenericModel().save(getData().getValue());
+			getGenericSeamModel().save(getData().getValue());
 			return Constantes.Navegacao.SALVO;
 		} catch (Exception e) {
 			log.error("Erro ao salvar elemento", e);
@@ -84,7 +84,7 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	public String saveWithValidation() {
 		try {
-			getGenericModel().saveWithValidation(getData().getValue());
+			getGenericSeamModel().saveWithValidation(getData().getValue());
 			return Constantes.Navegacao.SALVO;
 		} catch (ValidateException e) {
 			e.montarMensagenJsf();
@@ -99,8 +99,9 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	public void findAllByExample() {
 		try {
-			this.list = (List<E>) getGenericModel().findByExampleWithParams(
-					getObjPesquisa(), true, false, true);
+			this.list = (List<E>) getGenericSeamModel()
+					.findByExampleWithParams(getObjPesquisa(), true, false,
+							true);
 		} catch (Exception e) {
 			log.error("Erro ao salvar elemento", e);
 			FacesUtil.addErrorMessageHour("Erro ao salvar elemento"
@@ -110,7 +111,7 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 
 	public String delete() {
 		try {
-			getGenericModel().delete(getData().getValue());
+			getGenericSeamModel().delete(getData().getValue());
 			if (getList() != null && !getList().isEmpty()) {
 				getList().remove(getData().getValue());
 			}
@@ -274,7 +275,7 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 			try {
 				objPesquisa = getEntityClass().newInstance();
 			} catch (Exception e) {
-				log.error("Erro ao criar classe de seleção", e);
+				log.error("Erro ao criar classe de selecao", e);
 			}
 		}
 		return objPesquisa;
@@ -298,7 +299,8 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 	public List<Object[]> getRevisoes() {
 		try {
 			if (revisoes == null || revisoes.isEmpty()) {
-				revisoes = getGenericModel().getRevisions(getData().getValue());
+				revisoes = getGenericSeamModel().getRevisions(
+						getData().getValue());
 			}
 		} catch (Exception e) {
 			FacesUtil.addErrorMessageHour("Erro ao obter revisoes da entidade "
@@ -321,12 +323,12 @@ public abstract class SeamAbstractUI<E extends IDefaultEntity<?>, T extends Defa
 		revisoes = new ArrayList<Object[]>();
 	}
 
-	public IGenericSeamModel getGenericModel() {
-		return genericModel;
+	public IGenericSeamModel getGenericSeamModel() {
+		return genericSeamModel;
 	}
 
-	public void setGenericModel(IGenericSeamModel genericModel) {
-		this.genericModel = genericModel;
+	public void setGenericSeamModel(IGenericSeamModel genericSeamModel) {
+		this.genericSeamModel = genericSeamModel;
 	}
 
 }

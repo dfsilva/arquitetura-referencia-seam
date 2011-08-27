@@ -13,9 +13,6 @@ import br.gov.anatel.provaconceitoseam.model.iface.INotaModel;
 @Transactional(TransactionPropagationType.SUPPORTS)
 public class NotaModel extends GenericSeamModel implements INotaModel {
 
-	/**
-	 * Serial UID.
-	 */
 	private static final long serialVersionUID = 1L;
 
 }

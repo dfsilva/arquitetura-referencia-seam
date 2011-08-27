@@ -8,11 +8,13 @@
 				<param name="from" value="UsuarioList" />
 			</redirect>
 		</rule>
+		
 		<rule if-outcome="visualizar">
 			<redirect view-id="/pages/usuario/Usuario.xhtml">
 				<param name="from" value="UsuarioList" />
 			</redirect>
 		</rule>
+		
 		<rule if-outcome="historico">
 			<redirect view-id="/pages/usuario/historico.xhtml">
 				<param name="from" value="UsuarioList" />

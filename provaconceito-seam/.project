@@ -3,6 +3,8 @@
 	<name>provaconceito-seam</name>
 	<comment></comment>
 	<projects>
+		<project>jsf-components</project>
+		<project>arquitetura-infra-seam</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

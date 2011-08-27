@@ -20,14 +20,8 @@ import br.com.diegosilva.infraseam.util.ValidateUtils;
 @AutoCreate
 public class GenericSeamModel implements IGenericSeamModel {
 
-	/**
-	 * Variavel serialVersionUID do tipo long.
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Variavel genericDao do tipo IGenericDAO<E,T>.
-	 */
 	@In("genericDao")
 	private IGenericDAO genericDao;
 
@@ -63,7 +57,8 @@ public class GenericSeamModel implements IGenericSeamModel {
 		}
 	}
 
-	public <E extends IDefaultEntity<?>> E findByPk(E obj) throws ModelException {
+	public <E extends IDefaultEntity<?>> E findByPk(E obj)
+			throws ModelException {
 		try {
 			return getGenericDao().findByPk(obj);
 		} catch (Exception e) {
@@ -136,6 +131,10 @@ public class GenericSeamModel implements IGenericSeamModel {
 	 */
 	public IGenericDAO getGenericDao() {
 		return genericDao;
+	}
+
+	public void setGenericDao(IGenericDAO genericDao) {
+		this.genericDao = genericDao;
 	}
 
 }

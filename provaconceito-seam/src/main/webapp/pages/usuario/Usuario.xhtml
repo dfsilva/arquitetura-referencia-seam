@@ -57,7 +57,8 @@
 		                   rendered="#{empty usuarioBean.data.value.notas}"/>
 		        <rich:dataTable value="#{usuarioBean.data.value.notas}" var="_nota"
 		                  rendered="#{not empty usuarioBean.data.value.notas}" rowClasses="rvgRowOne,rvgRowTwo"
-		                        id="notasTable">
+		                  id="notasTable">
+		                  
 		            <rich:column sortBy="#{_nota.id}">
 		                <f:facet name="header">Id</f:facet>
 		                <h:outputText value="#{_nota.id}"/>
@@ -70,6 +71,7 @@
 		                <f:facet name="header">Texto</f:facet>
 		                <h:outputText value="#{_nota.texto}"/>
 		            </rich:column>
+		            
 		        </rich:dataTable>
 		    </h:form>
 	    </rich:tab>
